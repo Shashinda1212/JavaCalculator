@@ -1,15 +1,22 @@
 package gui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import javax.print.DocFlavor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -26,8 +33,8 @@ public class Calculator extends JFrame {
 
     private void init() {
 
-        this.setTitle("Java Calculator");
-        this.setSize(new Dimension(350, 400));
+        this.setTitle("My Calculator");
+        this.setSize(new Dimension(330, 450));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -37,7 +44,7 @@ public class Calculator extends JFrame {
         displayPanel.setLayout(bl);
 
         JPanel buttonPanel = new JPanel();
-        GridLayout gl = new GridLayout(6, 4, 2, 2);
+        GridLayout gl = new GridLayout(6, 4, 4, 4);
         buttonPanel.setLayout(gl);
 
         JTextField displayField = new JTextField();
@@ -48,12 +55,15 @@ public class Calculator extends JFrame {
         displayField.setEditable(false);
         displayField.setText("0");
 
-        displayPanel.add(displayField, BorderLayout.CENTER);
+        JLabel labelText = new JLabel("Standard Calculator");
+
+        displayPanel.add(labelText, BorderLayout.NORTH);
+        displayPanel.add(displayField);
 
         String[] btnLabels = {
-            "%", "CE", "C", "<",
+            "CE", "C", "<", "%",
             "1/x", "x^2", "√", "/",
-            "7", "8", "9", "*",
+            "7", "8", "9", "x",
             "4", "5", "6", "-",
             "1", "2", "3", "+",
             "+/-", "0", ".", "="
@@ -62,6 +72,11 @@ public class Calculator extends JFrame {
         for (String label : btnLabels) {
 
             JButton button = new JButton(label);
+
+            if (label == "=") {
+
+                button.setBackground(new Color(71, 177, 234));
+            }
 
             button.addActionListener(new ActionListener() {
                 @Override
@@ -118,14 +133,14 @@ public class Calculator extends JFrame {
                         case ("/"):
                         case ("+"):
                         case ("-"):
-                        case ("*"):
+                        case ("x"):
                         case ("%"):
                             if (isOperator == false) {
                                 firstNumber = Double.parseDouble(currentText);
                                 operator = label;
                                 isOperator = true;
                                 displayField.setText("");
-                            }else{
+                            } else {
                                 displayField.setText("Error");
                             }
                             break;
@@ -176,15 +191,15 @@ public class Calculator extends JFrame {
                         default:
                             if ("0123456789".contains(buttonText)) {
 
-                                if(!currentText.equals("Error")){
-                                
+                                if (!currentText.equals("Error")) {
+
                                     if (currentText.equals("0")) {
 
-                                    displayField.setText(buttonText);
-                                } else {
+                                        displayField.setText(buttonText);
+                                    } else {
 
-                                    displayField.setText(currentText + buttonText);
-                                }
+                                        displayField.setText(currentText + buttonText);
+                                    }
                                 }
                             }
                             break;
@@ -198,6 +213,8 @@ public class Calculator extends JFrame {
         this.setLayout(new BorderLayout());
         this.add(displayPanel, BorderLayout.NORTH);
         this.add(buttonPanel, BorderLayout.CENTER);
+        appIcon.applyIcon(this);
+
     }
 
     private String formatNumber(double num) {
@@ -209,7 +226,34 @@ public class Calculator extends JFrame {
     }
 
     public static void main(String[] args) {
-        FlatDarkLaf.setup();
+        FlatLightLaf.setup();
         new Calculator().setVisible(true);
+    }
+}
+
+class appIcon {
+
+    private static Image icon;
+
+    private void util() {
+
+        try {
+
+            URL iconPath = appIcon.class.getResource("/gui/calculator-icon-1.png");
+            ImageIcon imageicon = new ImageIcon(iconPath);
+            appIcon.icon = imageicon.getImage();
+        }catch(NullPointerException e){
+        
+            e.printStackTrace();
+        }
+
+    }
+    
+    public static void applyIcon(JFrame frame){
+    
+        if(frame != null){
+        
+            frame.setIconImage(icon);
+        }
     }
 }
