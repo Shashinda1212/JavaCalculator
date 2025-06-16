@@ -99,9 +99,13 @@ public class Calculator extends JFrame {
                             break;
 
                         case ("<"):
-                            if (!currentText.equals("0") && currentText.length() > 0) {
-
-                                displayField.setText(currentText.substring(0, currentText.length() - 1));
+                            if (!currentText.equals("0") && currentText.length() > 1) {
+                                
+                                    displayField.setText(currentText.substring(0, currentText.length() - 1));
+                                
+                            }else{
+                            
+                                displayField.setText("0");
                             }
                             break;
 
@@ -174,6 +178,10 @@ public class Calculator extends JFrame {
 
                                     case ("-"):
                                         finalResult = firstNumber - secondNumber;
+                                        break;
+                                        
+                                    case ("%"):
+                                        finalResult = firstNumber % secondNumber;
                                         break;
                                 }
                                 displayField.setText(formatNumber(finalResult));
