@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
+import java.text.DecimalFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -226,7 +227,8 @@ public class Calculator extends JFrame {
         if (num == (int) num) {
             return String.valueOf((int) num);
         } else {
-            return String.valueOf(num);
+            DecimalFormat dcm = new DecimalFormat("#.##");
+            return String.valueOf(dcm.format(num));
         }
     }
 
