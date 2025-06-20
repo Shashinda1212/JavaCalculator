@@ -101,11 +101,11 @@ public class Calculator extends JFrame {
 
                         case ("<"):
                             if (!currentText.equals("0") && currentText.length() > 1) {
-                                
-                                    displayField.setText(currentText.substring(0, currentText.length() - 1));
-                                
-                            }else{
-                            
+
+                                displayField.setText(currentText.substring(0, currentText.length() - 1));
+
+                            } else {
+
                                 displayField.setText("0");
                             }
                             break;
@@ -159,7 +159,7 @@ public class Calculator extends JFrame {
                                 double finalResult = 0;
 
                                 switch (operator) {
-
+                                                                    
                                     case ("/"):
                                         if (secondNumber == 0) {
                                             displayField.setText("Error");
@@ -180,7 +180,7 @@ public class Calculator extends JFrame {
                                     case ("-"):
                                         finalResult = firstNumber - secondNumber;
                                         break;
-                                        
+
                                     case ("%"):
                                         finalResult = firstNumber % secondNumber;
                                         break;
@@ -249,16 +249,16 @@ class appIcon {
             URL iconPath = appIcon.class.getResource("/gui/calculator-icon-1.png");
             ImageIcon imageicon = new ImageIcon(iconPath);
             appIcon.icon = imageicon.getImage();
-        }catch(NullPointerException e){
-        
+        } catch (NullPointerException e) {
+
             e.printStackTrace();
         }
 
     }
-    
-    public static void applyIcon(JFrame frame){
-    
-        if(frame != null){
+
+    public static void applyIcon(JFrame frame) {
+
+        if (frame != null) {
             util();
             frame.setIconImage(icon);
         }
